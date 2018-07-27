@@ -40,18 +40,18 @@ div.tooltip {
 </style>
 <body>
 
-<!-- load the d3.js library -->    
+
 <script src="http://d3js.org/d3.v3.min.js"></script>
 
 <script>
 
-// Set the dimensions of the canvas / graph
+
 var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 500 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 
-// Set the ranges
+
 var x = d3.time.scale().range([0, width]);
 var y = d3.scale.linear().range([height, 0]);
 
@@ -60,7 +60,7 @@ var siFormat = d3.format("s");
         return siFormat(d);
       };
       
-// Define the axes
+
 var xAxis = d3.svg.axis().scale(x)
     .orient("bottom").ticks(5);
 
@@ -68,17 +68,17 @@ var yAxis = d3.svg.axis().scale(y)
     .orient("left").ticks(5)
     .tickFormat(customTickFormat);
 
-// Define the line
+
 var valueline = d3.svg.line()
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(d.bicycles); });
 
-// Define the div for the tooltip
+
 var div = d3.select("body").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);
 
-// Adds the svg canvas
+
 var svg = d3.select("body")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -95,7 +95,7 @@ d3.csv("https://raw.githubusercontent.com/sviji06/middleman-static-d3/master/Eas
         console.log(d.bicycles);
     });
 
-    // Scale the range of the data
+    
     x.domain(d3.extent(data, function(d) { return d.year; }));
     y.domain([0, d3.max(data, function(d) { return d.bicycles; })]);
 
@@ -104,7 +104,7 @@ d3.csv("https://raw.githubusercontent.com/sviji06/middleman-static-d3/master/Eas
         .attr("class", "line")
         .attr("d", valueline(data));
 
-    // Add the scatterplot
+    
     svg.selectAll("dot")	
         .data(data)			
     .enter().append("circle")								
